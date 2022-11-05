@@ -25,41 +25,98 @@ public:
         start = nullptr;
         last = nullptr;
     }
+    bool isEmpty()
+    {
+        return start == nullptr;
+    }
     void insertAtFront(int data)
     {
         node *temp = new node(data);
-        temp->next = start;
-        start->prev = temp;
+        if (!isEmpty())
+        {
+            temp->next = start;
+            start->prev = temp;
+        }
+
         start = temp;
+        if (last == nullptr)
+        {
+            last = start;
+        }
     }
     void insertAtEnd(int data)
     {
         node *temp = new node(data);
-        temp->prev = last;
-        last->next = temp;
+        if (!isEmpty())
+        {
+            temp->prev = last;
+            last->next = temp;
+        }
         last = temp;
+        if (start == nullptr)
+        {
+            start = last;
+        }
     }
     int deleteFromStart()
     {
         node *temp = start;
         int dataToReturn = temp->data;
-        start = start->next;
-        start->prev = nullptr;
+        if (start != last)
+        {
+
+            start = start->next;
+            start->prev = nullptr;
+        }
+        else
+        {
+            start = nullptr;
+            last = nullptr;
+        }
         delete temp;
         return dataToReturn;
     }
     int deleteFromEnd()
     {
+
         node *temp = last;
         int dataToReturn = temp->data;
-        last = last->prev;
-        last->next = nullptr;
+        if (last != start)
+        {
+            last = last->prev;
+            last->next = nullptr;
+        }
+        else
+        {
+            start = nullptr;
+            last = nullptr;
+        }
         delete temp;
+
         return dataToReturn;
+    }
+    void printDeQueue()
+    {
+        node *temp = start;
+        while (temp != nullptr)
+        {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
     }
 };
 int main()
 {
-
+    DeQueue d1;
+    d1.insertAtFront(5);
+    d1.insertAtEnd(4);
+    d1.insertAtEnd(3);
+    d1.insertAtEnd(2);
+    d1.insertAtEnd(1);
+    d1.insertAtEnd(8);
+    d1.printDeQueue();
+    d1.deleteFromStart();
+    d1.deleteFromEnd();
+    d1.printDeQueue();
     return 0;
 }
