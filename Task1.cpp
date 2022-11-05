@@ -184,32 +184,33 @@ public:
             node *nextX = currX->next;
             currX->next = currY->next;
             currY->next = nextX;
-        
-        if (currX != head)
-        {
-            prevX->next = currY;
-        }
-        if (currY != head)
-        {
-            prevY->next = currX;
-        }
 
-        if (currX == head)
-        {
-            head = currY;
-        }
-        if (currX == tail)
-        {
-            tail = currY;
-        }
-        if (currY == head)
-        {
-            head = currX;
-        }
-        if (currY == tail)
-        {
-            tail = currX;
-        }
+            if (currX != head)
+            {
+                prevX->next = currY;
+            }
+            if (currY != head)
+            {
+                prevY->next = currX;
+            }
+
+            if (currX == head)
+            {
+                head = currY;
+            }
+            else if (currY == head)
+            {
+                head = currX;
+            }
+            if (currX == tail)
+            {
+                tail = currY;
+            }
+
+            else if (currY == tail)
+            {
+                tail = currX;
+            }
         }
     }
 };
@@ -225,7 +226,7 @@ int main()
     ll.insertAtTail(7);
     ll.insertAtTail(8);
     ll.printll();
-    ll.swapNodes(5, 6);
+    ll.swapNodes(1, 3);
     ll.printll();
 
     return 0;
