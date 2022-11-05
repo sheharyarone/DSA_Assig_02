@@ -169,15 +169,21 @@ public:
 
         if (currX == prevY)
         {
-            prevX->next = currY;
             currX->next = currY->next;
             currY->next = currX;
+            if (currX != head)
+            {
+                prevX->next = currY;
+            }
         }
         else if (currY == prevX)
         {
-            prevY->next = currX;
             currY->next = currX->next;
             currX->next = currY;
+            if (currY != head)
+            {
+                prevY->next = currX;
+            }
         }
         else
         {
@@ -193,24 +199,23 @@ public:
             {
                 prevY->next = currX;
             }
+        }
+        if (currX == head)
+        {
+            head = currY;
+        }
+        else if (currY == head)
+        {
+            head = currX;
+        }
+        if (currX == tail)
+        {
+            tail = currY;
+        }
 
-            if (currX == head)
-            {
-                head = currY;
-            }
-            else if (currY == head)
-            {
-                head = currX;
-            }
-            if (currX == tail)
-            {
-                tail = currY;
-            }
-
-            else if (currY == tail)
-            {
-                tail = currX;
-            }
+        else if (currY == tail)
+        {
+            tail = currX;
         }
     }
 };
@@ -226,7 +231,7 @@ int main()
     ll.insertAtTail(7);
     ll.insertAtTail(8);
     ll.printll();
-    ll.swapNodes(1, 3);
+    ll.swapNodes(7, 8);
     ll.printll();
 
     return 0;
