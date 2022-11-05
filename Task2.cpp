@@ -110,42 +110,38 @@ public:
 void sort(int *arr, int size)
 {
     // write your code here
-    DeQueue q1, q2; // q1 is for sorted q2 is for sorting of q1
-    q1.insertAtFront(arr[0]);
+    DeQueue q;
+    q.insertAtEnd(arr[0]); // s2 will be on front  s2 will be on end  s1 will hold ascending
     for (int i = 1; i < size; i++)
     {
-
-        if (arr[i] >= q1.last->data)
+        if (arr[i] >= q.last->data)
         {
-            q1.insertAtEnd(arr[i]);
+            q.insertAtEnd(arr[i]); // {7, 10, 15, 11, 12}};
+        }
+        else if (arr[i] <= q.start->data)
+        {
+            q.insertAtFront(arr[i]);
         }
         else
         {
-            while ((arr[i] < q1.last->data))
+            while (arr[i] < q.last->data)
             {
-
-                q2.insertAtEnd(q1.deleteFromEnd());
-                if (q1.isEmpty())
-                {
-                    break;
-                }
+                q.insertAtFront(q.deleteFromEnd());
             }
-            // q2.printDeQueue();
-
-            q1.insertAtEnd(arr[i]);
-            while (!q2.isEmpty())
+            q.insertAtEnd(arr[i]);
+            while (q.last->data < q.start->data)
             {
-                q1.insertAtEnd(q2.deleteFromEnd());
+                q.insertAtEnd(q.deleteFromStart());
             }
         }
     }
-    q1.printDeQueue();
+    q.printDeQueue();
 }
 
 int main()
 {
     // int *arr =new {1,2,1,2,4,8,5,8,3,5,6,2,1,3,9,4,6,2,4,7};
-    int *array{new int[5]{7, 10, 15, 3, 11}};
+    int *array{new int[6]{10, 7, 15, 1, 11, 12}};
     sort(array, 5);
     return 0;
 }
