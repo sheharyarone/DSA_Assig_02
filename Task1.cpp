@@ -166,11 +166,25 @@ public:
             ploc = loc;
             loc = loc->next;
         }
-        node *nextX = currX->next;
 
-        currX->next = currY->next;
-        currY->next = nextX;
-
+        if (currX == prevY)
+        {
+            prevX->next = currY;
+            currX->next = currY->next;
+            currY->next = currX;
+        }
+        else if (currY == prevX)
+        {
+            prevY->next = currX;
+            currY->next = currX->next;
+            currX->next = currY;
+        }
+        else
+        {
+            node *nextX = currX->next;
+            currX->next = currY->next;
+            currY->next = nextX;
+        
         if (currX != head)
         {
             prevX->next = currY;
@@ -196,9 +210,7 @@ public:
         {
             tail = currX;
         }
-        cout << currX->data << endl;
-
-        cout << currY->data << endl;
+        }
     }
 };
 
@@ -213,7 +225,7 @@ int main()
     ll.insertAtTail(7);
     ll.insertAtTail(8);
     ll.printll();
-    ll.swapNodes(8, 1);
+    ll.swapNodes(5, 6);
     ll.printll();
 
     return 0;
