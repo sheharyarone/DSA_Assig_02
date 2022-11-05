@@ -27,7 +27,7 @@ public:
     }
     bool isEmpty()
     {
-        return start == nullptr;
+        return start == nullptr && last == nullptr;
     }
     void insertAtFront(int data)
     {
@@ -103,20 +103,49 @@ public:
             cout << temp->data << " ";
             temp = temp->next;
         }
+        cout << endl;
     }
 };
+
+void sort(int *arr, int size)
+{
+    // write your code here
+    DeQueue q1, q2; // q1 is for sorted q2 is for sorting of q1
+    q1.insertAtFront(arr[0]);
+    for (int i = 1; i < size; i++)
+    {
+
+        if (arr[i] >= q1.last->data)
+        {
+            q1.insertAtEnd(arr[i]);
+        }
+        else
+        {
+            while ((arr[i] < q1.last->data))
+            {
+
+                q2.insertAtEnd(q1.deleteFromEnd());
+                if (q1.isEmpty())
+                {
+                    break;
+                }
+            }
+            // q2.printDeQueue();
+
+            q1.insertAtEnd(arr[i]);
+            while (!q2.isEmpty())
+            {
+                q1.insertAtEnd(q2.deleteFromEnd());
+            }
+        }
+    }
+    q1.printDeQueue();
+}
+
 int main()
 {
-    DeQueue d1;
-    d1.insertAtFront(5);
-    d1.insertAtEnd(4);
-    d1.insertAtEnd(3);
-    d1.insertAtEnd(2);
-    d1.insertAtEnd(1);
-    d1.insertAtEnd(8);
-    d1.printDeQueue();
-    d1.deleteFromStart();
-    d1.deleteFromEnd();
-    d1.printDeQueue();
+    // int *arr =new {1,2,1,2,4,8,5,8,3,5,6,2,1,3,9,4,6,2,4,7};
+    int *array{new int[5]{7, 10, 15, 3, 11}};
+    sort(array, 5);
     return 0;
 }
