@@ -166,40 +166,48 @@ public:
             ploc = loc;
             loc = loc->next;
         }
-
+        // IF NODES ARE ADJACENT and X COMES FIRST
         if (currX == prevY)
         {
             currX->next = currY->next;
             currY->next = currX;
+
+            // IF X IS FIRST NODE THEN THERE IS NO prevNODE
             if (currX != head)
             {
                 prevX->next = currY;
             }
         }
+        // IF NODES ARE ADJACENT and  Y COMES FIRST
         else if (currY == prevX)
         {
             currY->next = currX->next;
             currX->next = currY;
+            // IF Y IS FIRST NODE THEN THERE IS NO prevNODE
             if (currY != head)
             {
                 prevY->next = currX;
             }
         }
+        // IF NODES ARE NOT ADJACENT
         else
         {
             node *nextX = currX->next;
             currX->next = currY->next;
             currY->next = nextX;
-
+            // IF X IS FIRST NODE THEN THERE IS NO prevNODE
             if (currX != head)
             {
                 prevX->next = currY;
             }
+            // IF Y IS FIRST NODE THEN THERE IS NO prevNODE
             if (currY != head)
             {
                 prevY->next = currX;
             }
         }
+
+        // IF'S FOR CHECKING WHETHER any swap node was first
         if (currX == head)
         {
             head = currY;
@@ -208,6 +216,8 @@ public:
         {
             head = currX;
         }
+
+        // IF'S FOR CHECKING WHETHER any swap node was LAST
         if (currX == tail)
         {
             tail = currY;
