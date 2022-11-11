@@ -34,7 +34,7 @@ bool findPath(int x, int y, int endX, int endY, int **&arr, int size)
         return true;
     return false;
 }
-void makeMatrix(int **arr, int size)
+void generateMaze(int **arr, int size)
 {
     srand(time(NULL));
     for (int i = 0; i < 4; i++)
@@ -49,7 +49,7 @@ void makeMatrix(int **arr, int size)
         }
     }
 }
-void printArray(int **arr, int size)
+void printMaze(int **arr, int size)
 {
     for (int i = 0; i < size; i++)
     {
@@ -65,9 +65,9 @@ int main()
 {
     int size = 4;
     int **arr = new int *[size];
-    makeMatrix(arr, size);
+    generateMaze(arr, size);
     cout << "MATRIX WHICH IS FORMED : " << endl;
-    printArray(arr, size);
+    printMaze(arr, size);
 
     // PICKING TWO RANDOM POINTS HAVING NO WALL
     int x, y, endX, endY;
@@ -88,19 +88,12 @@ int main()
         endY = rand() % 4;
     }
     // RANDOM POINTS SELECTED
-    
+
     cout << "FIRST POINT : " << x << y << " " << endl;
     cout << "SECOND POINT : " << endX << endY << endl;
     cout << "RESULT OF OUR FUNCTION : " << findPath(x, y, endX, endY, arr, 4) << endl;
 
     cout << "AFTER TRAVERSING" << endl;
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            cout << arr[i][j] << " ";
-        }
-        cout << endl;
-    }
+    printMaze(arr, size);
     return 0;
 }
