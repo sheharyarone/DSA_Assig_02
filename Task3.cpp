@@ -3,6 +3,14 @@
 #include <time.h>
 using namespace std;
 
+bool range(int x, int y, int *arr, int size)
+{
+    return (*(arr + x + 1 * size + y) == 1) ||
+           (*(arr + x * size + y + 1) == 1) ||
+           (*(arr + x * size + y - 1) == 1) ||
+           (*(arr + x - 1 * size + y) == 1);
+}
+
 bool findPath(int x, int y, int endX, int endY, int *arr, int size)
 {
     bool valid = false;
@@ -11,26 +19,29 @@ bool findPath(int x, int y, int endX, int endY, int *arr, int size)
     {
         return true;
     }
-    if (x + 1 < size && (*(arr + x + 1 * size + y) == 1))
+    if (x + 1 < size && (*(arr + x + 1 * size + y) == 1) && range(x + 1, y, arr, size))
     {
-        valid = findPath(x + 1, y, endX, endY, arr, size);
+        return findPath(x + 1, y, endX, endY, arr, size);
     }
-    else if (y + 1 < size && (*(arr + x * size + y + 1) == 1))
+    else if (y + 1 < size && (*(arr + x * size + y + 1) == 1) && range(x, y + 1, arr, size))
     {
-        valid = findPath(x, y + 1, endX, endY, arr, size);
+
+        return findPath(x, y + 1, endX, endY, arr, size);
     }
-    else if (y - 1 >= 0 && (*(arr + x * size + y - 1) == 1))
+    else if (y - 1 >= 0 && (*(arr + x * size + y - 1) == 1) && range(x, y - 1, arr, size))
     {
-        valid = findPath(x, y - 1, endX, endY, arr, size);
+
+        return findPath(x, y - 1, endX, endY, arr, size);
     }
-    else if (x - 1 >= 0 && (*(arr + x - 1 * size + y) == 1))
+    else if (x - 1 >= 0 && (*(arr + x - 1 * size + y) == 1) && range(x - 1, y, arr, size))
     {
-        valid = findPath(x - 1, y, endX, endY, arr, size);
+
+        return findPath(x - 1, y, endX, endY, arr, size);
     }
 
     else
     {
-        return valid;
+        return false;
     }
 }
 
