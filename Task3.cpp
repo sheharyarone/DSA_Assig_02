@@ -1,14 +1,36 @@
 #include <iostream>
 #include <string>
 #include <time.h>
-
 using namespace std;
 
 bool findPath(int x, int y, int endX, int endY, int *arr, int size)
 {
-    if (*(arr + x * 4 + y) && endX != x)
+    bool valid = false;
+
+    if (x == endX && y == endY)
     {
-        return findPath(++x, ++y, endX, endY, arr, size);
+        return true;
+    }
+    if (x + 1 < size && (*(arr + x + 1 * size + y) == 1))
+    {
+        valid = findPath(x + 1, y, endX, endY, arr, size);
+    }
+    else if (y + 1 < size && (*(arr + x * size + y + 1) == 1))
+    {
+        valid = findPath(x, y + 1, endX, endY, arr, size);
+    }
+    else if (y - 1 >= 0 && (*(arr + x * size + y - 1) == 1))
+    {
+        valid = findPath(x, y - 1, endX, endY, arr, size);
+    }
+    else if (x - 1 >= 0 && (*(arr + x - 1 * size + y) == 1))
+    {
+        valid = findPath(x - 1, y, endX, endY, arr, size);
+    }
+
+    else
+    {
+        return valid;
     }
 }
 
@@ -49,14 +71,16 @@ int main()
         endX = rand() % 4;
         endY = rand() % 4;
     }
+    cout << x << y << " " << *(arr + endX * 4 + endY) << endl;
+    cout << endX << endY << " " << *(arr + x * 4 + y) << endl;
 
     if (x < endX)
     {
-        findPath(x, y, endX, endY, arr, 4);
+        cout << findPath(x, y, endX, endY, arr, 4);
     }
     else
     {
-        findPath(endX, endY, x, y, arr, 4);
+        cout << findPath(endX, endY, x, y, arr, 4);
     }
 
     return 0;
